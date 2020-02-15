@@ -1,8 +1,8 @@
-/TrueAlert/build/
-/TrueAlert/test/
-/TrueAlert/nbproject/
-/TrueAlert/.idea/
-/TrueAlert/.directory
-/TrueAlert/build.xml
-/TrueAlert/manifest.mf
+/build/
+/test/
+/nbproject/
+/.idea/
+/.directory
+/build.xml
+/manifest.mf
 
