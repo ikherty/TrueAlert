@@ -136,7 +136,7 @@ public class mainWindow extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new mainWindow().setVisible(true);//убрала появление окна для отладки
-            }//трай
+            }//трай e
         });
     }
 
