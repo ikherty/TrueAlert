@@ -135,8 +135,8 @@ public class mainWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new mainWindow().setVisible(true);//убрала появление окна для отладки
-            }//трай e
+                new mainWindow().setVisible(true);
+            }
         });
     }
 
