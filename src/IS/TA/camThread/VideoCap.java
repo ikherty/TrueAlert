@@ -17,7 +17,7 @@ import org.opencv.videoio.VideoCapture;
 
 
 public class VideoCap {
-    public static void main (String args[]){
+    public static void ShowVideo (){
     	System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     	VideoCapture camera = new VideoCapture(0);
     	
@@ -32,13 +32,12 @@ public class VideoCap {
 //    	    		System.out.println("Frame Obtained");
 //    	    		System.out.println("Captured Frame Width " + 
 //    	    		frame.width() + " Height " + frame.height());
-    	    		HighGui.imshow("hi", frame);
+    	    		HighGui.imshow("True Alert", frame);
                         HighGui.waitKey(2);
-                        //HighGui.toBufferedImage(frame); //вероятно так встраивать в главное окно
-    	    		System.out.println("OK");
+    	    		//System.out.println("OK");
     	    	}
     	    }	
-    	}
+    	} 
     	camera.release();
     }
 }   
