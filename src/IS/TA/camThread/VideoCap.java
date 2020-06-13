@@ -5,6 +5,8 @@
  */
 package IS.TA.camThread;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.highgui.HighGui;
@@ -17,12 +19,15 @@ import org.opencv.videoio.VideoCapture;
 
 
 public class VideoCap {
-    public static void ShowVideo (){
+    //public static void main(String args[]) {
+    public static void ShowVideo (){//статический метод для вызова из главного фрейма
     	System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     	VideoCapture camera = new VideoCapture(0);
     	
     	if(!camera.isOpened()){
-    		System.out.println("Error");
+    		//System.out.println("Error");
+                JOptionPane.showMessageDialog(new JFrame(), "Камера не подключена!", "Предупреждение",
+                JOptionPane.WARNING_MESSAGE);
     	}
     	else {
     		Mat frame = new Mat();
@@ -34,7 +39,6 @@ public class VideoCap {
 //    	    		frame.width() + " Height " + frame.height());
     	    		HighGui.imshow("True Alert", frame);
                         HighGui.waitKey(2);
-    	    		//System.out.println("OK");
     	    	}
     	    }	
     	} 
@@ -74,4 +78,8 @@ import java.awt.image.WritableRaster;
         frame.setTitle("Image captured");
         frame.setVisible(true);
     }
-}*/
+}
+
+или из OpenCV_i_Java_Obrabotka_izobrazheniy_i_kompyuternoe_zrenie_2018.pdf стр.119+-
+
+*/
