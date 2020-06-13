@@ -11,7 +11,7 @@ package IS.TA.GUI;
  * @author Rusin Artem
  */
 public class Main {
-    
+    //rgrg
     /**
      * @param args the command line arguments
      */
