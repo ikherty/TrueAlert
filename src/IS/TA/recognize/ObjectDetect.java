@@ -121,7 +121,6 @@ public class ObjectDetect {
         for (Rect r : faces.toList()) {//выделение в прямоугольник
             Imgproc.rectangle(img, r, colorRGB(255, 255, 255), 2);//выделение лиц в прямоугольники
         }
-
         //showImage(img, "Распознанные лица");//для тестовой картинки
         //img.release();
         return img;

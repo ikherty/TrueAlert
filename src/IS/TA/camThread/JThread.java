@@ -5,14 +5,12 @@
  */
 package IS.TA.camThread;
 
-import static IS.TA.camThread.VideoCap.getFrameFromCam;
 import static IS.TA.camThread.VideoCap.getRectFrameFromCam;
 import java.awt.Panel;
-import javax.swing.JPanel;
 
 /**
  *
- * @author qw
+ * @author Petrenko Valentina
  */
 
 public class JThread extends Thread {
@@ -24,13 +22,10 @@ public class JThread extends Thread {
     }
       
     public void run(){
-          
         System.out.printf("%s started... \n", Thread.currentThread().getName());
         try{
             while(true){
-//            getRectFrameFromCam();
-            panel.getGraphics().drawImage(getFrameFromCam(), 0, 0, null);
-        //repaint();
+            panel.getGraphics().drawImage(getRectFrameFromCam(), 0, 0, null);
             Thread.sleep(0);
             }
         }
