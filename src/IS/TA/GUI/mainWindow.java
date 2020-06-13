@@ -5,6 +5,7 @@
  */
 package IS.TA.GUI;
 
+import IS.TA.camThread.JThread;
 import static IS.TA.camThread.VideoCap.getRectFrameFromCam;
 import static IS.TA.camThread.VideoCap.ShowVideo;
 import static IS.TA.camThread.VideoCap.getFrameFromCam;
@@ -77,11 +78,11 @@ public class mainWindow extends javax.swing.JFrame {
         panel1.setLayout(panel1Layout);
         panel1Layout.setHorizontalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 422, Short.MAX_VALUE)
+            .addGap(0, 503, Short.MAX_VALUE)
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 216, Short.MAX_VALUE)
+            .addGap(0, 283, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -102,7 +103,7 @@ public class mainWindow extends javax.swing.JFrame {
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
             .addGroup(layout.createSequentialGroup()
-                .addGap(109, 109, 109)
+                .addGap(75, 75, 75)
                 .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -116,9 +117,9 @@ public class mainWindow extends javax.swing.JFrame {
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -143,18 +144,19 @@ public class mainWindow extends javax.swing.JFrame {
 //        Здесь проиходит выбор USB-устройства, подключенного к ПК в качестве камеры
 //        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 //        ShowVideo();
-        Component[] comp = panel1.getComponents();
-        panel1.getGraphics().drawImage(getFrameFromCam(), 0, 0, null);
-        repaint();
+
+        new JThread("JThread", panel1).start();
+//        panel1.getGraphics().drawImage(getFrameFromCam(), 0, 0, null);
+//        repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
     
-    public void paintComponent(Graphics g) {
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-//        Mat img = Imgcodecs.imread("/home/qw/test.jpg"); //для теста на одной картинке
-//        BufferedImage bufferedImage = MatToBufferedImage(img);
-        g.drawImage(getFrameFromCam(), 0, 0, this);
-        repaint();
-    }
+//    public void paintComponent(Graphics g) {
+//        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+////        Mat img = Imgcodecs.imread("/home/qw/test.jpg"); //для теста на одной картинке
+////        BufferedImage bufferedImage = MatToBufferedImage(img);
+//        g.drawImage(getFrameFromCam(), 0, 0, this);
+//        repaint();
+//    }
     /**
      * @param args the command line arguments
      */
