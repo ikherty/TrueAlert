@@ -108,9 +108,9 @@ public class mainWindow extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 //        Здесь проиходит выбор USB-устройства, подключенного к ПК в качестве камеры
-//        VideoCap obj=new VideoCap();
-//        obj.ShowVideo();
-        VideoCap.ShowVideo();
+        VideoCap obj=new VideoCap();
+        obj.ShowVideo();
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
