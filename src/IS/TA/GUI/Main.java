@@ -25,7 +25,6 @@ import org.opencv.videoio.VideoCapture;
  *
  * @author qw
  */
-
 //тестовый вариант получения jframe из Mat frame
 public class Main extends JPanel {
 //    int count=0;
@@ -38,29 +37,34 @@ public class Main extends JPanel {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 //        Mat img = Imgcodecs.imread("/home/qw/test.jpg"); //для теста на одной картинке
 //        BufferedImage bufferedImage = MatToBufferedImage(img);
-        
-        g.drawImage(qa(g), 20, 20, this);
-//        repaint();
+//        qa(g);
+        g.drawImage(getFrameFromCam(), 20, 20, this);
+        repaint();
 
     }
 
-    public Image qa(Graphics g) {
+    public void qa(Graphics g) {
+
+        
+        repaint();
+//        return bufferedImage;
+    }
+
+    public Image getFrameFromCam() {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         VideoCapture camera = new VideoCapture(0);
 //        Graphics g;
-        BufferedImage bufferedImage=null;
+        BufferedImage bufferedImage = null;
         if (!camera.isOpened()) {
             JOptionPane.showMessageDialog(new JFrame(), "Камера не подключена!", "Предупреждение", JOptionPane.WARNING_MESSAGE);
         } else {
             Mat frame = new Mat();
 //            while (true) {
             if (camera.read(frame)) {
-                System.out.println("hi");
-//                    count++;
-//                    if(count < LIMIT){
-                Mat newframe = frontalface_alt(frame);//выделение лиц в прямоугольники
-                Mat img = Imgcodecs.imread("/home/qw/test.jpg"); //для теста на одной картинке
-                bufferedImage = MatToBufferedImage(newframe);//frontalface_alt(frame));
+//                System.out.println("hi");
+//                Mat newframe = frontalface_alt(frame);//выделение лиц в прямоугольники
+//                Mat img = Imgcodecs.imread("/home/qw/test.jpg"); //для теста на одной картинке
+                bufferedImage = MatToBufferedImage(frame);//frontalface_alt(frame));
 //                g = bufferedImage.getGraphics();
 //                g.drawImage(bufferedImage, 200, 200, this);
                 //pause();
@@ -69,7 +73,6 @@ public class Main extends JPanel {
 //            }
         }
         camera.release();
-//        repaint();
         return bufferedImage;
     }
 

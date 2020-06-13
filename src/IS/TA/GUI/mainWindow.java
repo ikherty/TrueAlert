@@ -5,9 +5,14 @@
  */
 package IS.TA.GUI;
 
-import IS.TA.camThread.VideoCap;
+import static IS.TA.camThread.VideoCap.getRectFrameFromCam;
+import static IS.TA.camThread.VideoCap.ShowVideo;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
-
+import org.opencv.core.Core;
 /**
  *
  * @author qw
@@ -99,7 +104,14 @@ public class mainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        // Сохранение обработанного
+        try {
+            BufferedImage image = (BufferedImage) getRectFrameFromCam();//получение обработанного снимка
+            File outputfile = new File("saved_image.png");
+            ImageIO.write(image, "png", outputfile);
+        } catch (IOException e) {
+            // handle exception
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -108,9 +120,8 @@ public class mainWindow extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 //        Здесь проиходит выбор USB-устройства, подключенного к ПК в качестве камеры
-        VideoCap obj=new VideoCap();
-        obj.ShowVideo();
-
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        ShowVideo();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
