@@ -21,8 +21,9 @@ public class VideoCap {
 
     //public static void main(String args[]) {//для теста этого метода
     public static void ShowVideo() {//статический метод для вызова из главного фрейма
+       // System.load("D:\\ArtemT\\важно\\универ\\VI семестр\\ТП\\opencv");
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        VideoCapture camera = new VideoCapture(0);
+        VideoCapture camera = new VideoCapture();
 
         if (!camera.isOpened()) {
             JOptionPane.showMessageDialog(new JFrame(), "Камера не подключена!", "Предупреждение", JOptionPane.WARNING_MESSAGE);
