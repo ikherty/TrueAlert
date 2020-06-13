@@ -26,10 +26,12 @@ import org.opencv.videoio.VideoCapture;
  *
  * @author qw
  */
+
 //тестовый вариант получения jframe из Mat frame
 public class Main extends JPanel {
 //    int count=0;
 //  final int LIMIT = 10000;
+
 
     /**
      * @param args the command line arguments
