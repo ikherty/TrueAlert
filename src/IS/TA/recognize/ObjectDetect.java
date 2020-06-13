@@ -73,8 +73,7 @@ public class ObjectDetect {
         }
 
         BufferedImage image = new BufferedImage(m.cols(), m.rows(), type);
-        byte[] data
-                = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
+        byte[] data = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
         System.arraycopy(buf, 0, data, 0, buf.length);
         return image;
     }
@@ -112,7 +111,7 @@ public class ObjectDetect {
         }
         CascadeClassifier face_detector = new CascadeClassifier();
         String path = "/home/qw/docs/opencv-4.2.0/data/haarcascades/";//путь к классификаторам
-        String name = "haarcascade_frontalface_alt.xml";
+        String name = "haarcascade_upperbody.xml";//haarcascade_frontalface_alt.xml для лиц
         if (!face_detector.load(path + name)) {
             JOptionPane.showMessageDialog(new JFrame(), "Не удалось загрузить классификатор " + name, "Предупреждение", JOptionPane.WARNING_MESSAGE);
             return frame;

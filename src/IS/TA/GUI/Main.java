@@ -6,12 +6,12 @@
 package IS.TA.GUI;
 
 
+
 /**
  *
  * @author Rusin Artem
  */
 public class Main {
-    
     /**
      * @param args the command line arguments
      */

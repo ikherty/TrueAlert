@@ -25,8 +25,7 @@ public class VideoCap {
         VideoCapture camera = new VideoCapture(0);
 
         if (!camera.isOpened()) {
-            JOptionPane.showMessageDialog(new JFrame(), "Камера не подключена!", "Предупреждение",
-                    JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(new JFrame(), "Камера не подключена!", "Предупреждение", JOptionPane.WARNING_MESSAGE);
         } else {
             Mat frame = new Mat();
             while (true) {

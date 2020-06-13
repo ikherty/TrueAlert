@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package IS.TA.GUI;
+
 import IS.TA.camThread.VideoCap;
 import javax.swing.JFrame;
+
 /**
  *
  * @author qw
@@ -110,10 +112,10 @@ public class mainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // Здесь проиходит выбор USB-устройства, подключенного к ПК в качестве камеры
+//        Здесь проиходит выбор USB-устройства, подключенного к ПК в качестве камеры
 //        VideoCap obj=new VideoCap();
 //        obj.ShowVideo();
-VideoCap.ShowVideo();
+        VideoCap.ShowVideo();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -146,8 +148,10 @@ VideoCap.ShowVideo();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new mainWindow().setVisible(true);
-                new mainWindow().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//завершение программы по выходу
+                mainWindow win = new mainWindow();
+                win.setVisible(true);
+//              win.setResizable(false);//для фиксированного размера окна
+                win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//завершение программы по выходу
             }
         });
     }
