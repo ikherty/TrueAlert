@@ -110,7 +110,7 @@ public class ObjectDetect {
             return frame;
         }
         CascadeClassifier face_detector = new CascadeClassifier();
-        String path = "/home/qw/docs/opencv-4.2.0/data/haarcascades/";//путь к классификаторам
+        String path = "./classificators/";//путь к классификаторам
         String name = "haarcascade_upperbody.xml";//haarcascade_frontalface_alt.xml для лиц
         if (!face_detector.load(path + name)) {
             JOptionPane.showMessageDialog(new JFrame(), "Не удалось загрузить классификатор " + name, "Предупреждение", JOptionPane.WARNING_MESSAGE);
