@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package IS.TA.camThread;
 
 import static IS.TA.camThread.VideoCap.getRectFrameFromCam;
@@ -18,7 +13,6 @@ public class JThread extends Thread {
     public JThread(String name, Panel panel){
         super(name);
         this.panel=panel;
-        
     }
       
     public void run(){

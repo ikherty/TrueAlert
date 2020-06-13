@@ -1,15 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package IS.TA.GUI;
 
 import IS.TA.camThread.JThread;
-import IS.TA.camThread.VideoCap;
-import static IS.TA.camThread.VideoCap.getFrameFromCam;
 import static IS.TA.camThread.VideoCap.getRectFrameFromCam;
-import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -202,7 +194,6 @@ public class mainWindow extends javax.swing.JFrame {
             public void run() {
                 mainWindow win = new mainWindow();
                 win.setVisible(true);
-                //win.setSize(1000, 1200);
 //              win.setResizable(false);//для фиксированного размера окна
                 win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//завершение программы по выходу
             }
