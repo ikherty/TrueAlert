@@ -1,5 +1,6 @@
 package IS.TA.camThread;
 
+import static IS.TA.camThread.VideoCap.ChoosePort;
 import static IS.TA.camThread.VideoCap.getRectFrameFromCam;
 import java.awt.Image;
 import java.awt.Panel;
@@ -8,13 +9,14 @@ import java.awt.Panel;
  *
  * @author Petrenko Valentina
  */
-public class JThread extends Thread {
-
+public class MyThread extends Thread {
+    private String port;
     private Panel panel;
 
-    public JThread(String name, Panel panel) {
+    public MyThread(String name, Panel panel, String port) {
         super(name);
         this.panel = panel;
+        this.port=port;
     }
 
     public void run() {
@@ -22,7 +24,7 @@ public class JThread extends Thread {
         Image img = null;
         try {
             while (true) {
-                img = getRectFrameFromCam();
+                img = getRectFrameFromCam(port);
                 if (img == null) {
                     break;
                 }

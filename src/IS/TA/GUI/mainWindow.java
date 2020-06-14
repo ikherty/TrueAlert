@@ -1,9 +1,10 @@
 package IS.TA.GUI;
 
-import IS.TA.camThread.JThread;
+import IS.TA.camThread.MyThread;
+import static IS.TA.camThread.VideoCap.ChoosePort;
+import static IS.TA.camThread.VideoCap.getPort;
 import static IS.TA.camThread.VideoCap.getRectFrameFromCam;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
@@ -150,7 +151,7 @@ public class mainWindow extends javax.swing.JFrame {
 //            // handle exception
 //        }
 //Сохранить кадр в выбранную директорию
-        Image saveImage =getRectFrameFromCam();
+        Image saveImage = getRectFrameFromCam(getPort());
         if (saveImage != null) {
             JFileChooser chooser = new JFileChooser();
             chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -177,7 +178,9 @@ public class mainWindow extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Здесь проиходит автоматический выбор USB-устройства, подключенного к ПК в качестве камеры
-        new JThread("JThread", panel1).start();//поток, показывающий обработанные картинки
+        String port=ChoosePort();
+        MyThread tr = new MyThread("JThread", panel1, port);
+        tr.start();//поток, показывающий обработанные картинки
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton1FocusGained
