@@ -17,8 +17,10 @@ import org.opencv.videoio.VideoCapture;
  * @author Petrenko Valentina
  */
 public class VideoCap {
+
     private static VideoCapture camera = null;
     private static Mat frame = new Mat();
+
     public static String ChoosePort() {//можно объединить с выбором директории, для выбора директории убрать ограничение "только директория"
         JFileChooser chooser = new JFileChooser();
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -26,19 +28,17 @@ public class VideoCap {
         File file = null;
         if (result == JFileChooser.APPROVE_OPTION) {
             file = chooser.getSelectedFile();
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(new JFrame(), "Камера не подключена!", "Предупреждение", JOptionPane.WARNING_MESSAGE);//если камера не выбрана, уведомление
         }
         return file.toString();
     }
 
     public static VideoCapture initCamera() {
-        camera = new VideoCapture();//VideoCapture(0)-камера по умолчанию
+        camera = new VideoCapture();//VideoCapture(0)-камера по умолчанию из /dev/video0
         camera.open(ChoosePort());
         return camera;
     }
-    //tryIoctl VIDEOIO(V4L2:/dev/video0)
 
     public static Image getRectFrameFromCam() {//возвращает обработанный фрейм
         BufferedImage bufferedImage = null;
@@ -53,6 +53,7 @@ public class VideoCap {
         return bufferedImage;
     }
 //Метод для корректного вывода потока в отдельное окно
+
     public static void main(String args[]) {//для теста этого метода
         camera.open(ChoosePort());
         if (!camera.isOpened()) {

@@ -21,7 +21,6 @@ import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 
 public class ObjectDetect {
-//COLOR_WHITE = colorRGB(255, 255, 255)
 
     public static Scalar colorRGB(double red, double green, double blue) {
         return new Scalar(blue, green, red);
@@ -99,7 +98,7 @@ public class ObjectDetect {
 
     public static Mat frontalface_alt(Mat frame) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        Mat img = frame;//Imgcodecs.imread("/home/qw/test.jpg"); //для теста на одной картинке
+        Mat img = frame;
         if (img.empty()) {
             JOptionPane.showMessageDialog(new JFrame(), "Не удалось загрузить изображение", "Предупреждение", JOptionPane.WARNING_MESSAGE);//варнинг
             return frame;
@@ -113,11 +112,9 @@ public class ObjectDetect {
         }
         MatOfRect faces = new MatOfRect();
         face_detector.detectMultiScale(img, faces);
-        for (Rect r : faces.toList()) {//выделение в прямоугольник
-            Imgproc.rectangle(img, r, colorRGB(255, 255, 255), 2);//выделение лиц в прямоугольники
+        for (Rect r : faces.toList()) {//выделение в белый прямоугольник
+            Imgproc.rectangle(img, r, colorRGB(255, 255, 255), 2);
         }
-        //showImage(img, "Распознанные лица");//для тестовой картинки
-        //img.release();
         return img;
 
     }
