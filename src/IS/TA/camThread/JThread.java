@@ -32,6 +32,6 @@ public class JThread extends Thread {
         } catch (InterruptedException e) {
             System.out.println("Thread has been interrupted");
         }
-        System.out.printf("%s fiished... \n", Thread.currentThread().getName());
+        System.out.printf("%s finished... \n", Thread.currentThread().getName());
     }
 }

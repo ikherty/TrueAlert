@@ -2,7 +2,9 @@ package IS.TA.GUI;
 
 import IS.TA.camThread.JThread;
 import static IS.TA.camThread.VideoCap.getRectFrameFromCam;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -148,22 +150,24 @@ public class mainWindow extends javax.swing.JFrame {
 //            // handle exception
 //        }
 //Сохранить кадр в выбранную директорию
-        BufferedImage saveImage = (BufferedImage) getRectFrameFromCam();
-        JFileChooser chooser = new JFileChooser();
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int result = chooser.showDialog(new JFrame(), "Сохранить файл");
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File file = chooser.getSelectedFile();
-            file = new File(file.toString() + "/saved.jpeg");
-            System.out.println(file);
-            try {
-                ImageIO.write(saveImage, "jpeg", file);
-            } catch (IOException ex) {
-                Logger.getLogger(mainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        Image saveImage =getRectFrameFromCam();
+        if (saveImage != null) {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            int result = chooser.showDialog(new JFrame(), "Сохранить файл");
+            if (result == JFileChooser.APPROVE_OPTION) {
+                File file = chooser.getSelectedFile();
+                file = new File(file.toString() + "/saved.jpeg");
+                System.out.println(file);
+                try {
+                    ImageIO.write((RenderedImage) saveImage, "jpeg", file);
+                } catch (IOException ex) {
+                    Logger.getLogger(mainWindow.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                JOptionPane.showMessageDialog(new JFrame(), "Кадр сохранен!", "Успешно", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(new JFrame(), "Отменено пользователем.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
             }
-            JOptionPane.showMessageDialog(new JFrame(), "Кадр сохранен!", "Успешно", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(new JFrame(), "Отменено пользователем.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

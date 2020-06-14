@@ -35,7 +35,7 @@ public class VideoCap {
 
     public static Image getRectFrameFromCam() {//возвращает обработанный фрейм
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        VideoCapture camera = new VideoCapture();
+        VideoCapture camera = new VideoCapture(0);
         BufferedImage bufferedImage = null;
         if (!camera.isOpened()) {
             JOptionPane.showMessageDialog(new JFrame(), "Камера не подключена!", "Предупреждение", JOptionPane.WARNING_MESSAGE);
