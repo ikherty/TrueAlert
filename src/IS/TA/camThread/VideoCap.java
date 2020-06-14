@@ -15,8 +15,41 @@ import org.opencv.videoio.VideoCapture;
  *
  * @author Petrenko Valentina
  */
-
 public class VideoCap {
+
+    public static Image getFrameFromCam() {//возвращает фрейм
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        VideoCapture camera = new VideoCapture(0);
+        BufferedImage bufferedImage = null;
+        if (!camera.isOpened()) {
+            JOptionPane.showMessageDialog(new JFrame(), "Камера не подключена!", "Предупреждение", JOptionPane.WARNING_MESSAGE);
+        } else {
+            Mat frame = new Mat();
+            if (camera.read(frame)) {
+                bufferedImage = MatToBufferedImage(frame);
+            }
+        }
+        camera.release();
+        return bufferedImage;
+    }
+
+    public static Image getRectFrameFromCam() {//возвращает обработанный фрейм
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        VideoCapture camera = new VideoCapture(0);
+        BufferedImage bufferedImage = null;
+        if (!camera.isOpened()) {
+            JOptionPane.showMessageDialog(new JFrame(), "Камера не подключена!", "Предупреждение", JOptionPane.WARNING_MESSAGE);
+            return null;
+        } else {
+            Mat frame = new Mat();
+            if (camera.read(frame)) {
+                bufferedImage = MatToBufferedImage(frontalface_alt(frame));
+            }
+        }
+        camera.release();
+        return bufferedImage;
+    }
+
     //public static void main(String args[]) {//для теста этого метода
     public static void ShowVideo() {//статический метод для вызова из главного фрейма
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -35,37 +68,5 @@ public class VideoCap {
             }
         }
         camera.release();
-    }
-    
-     public static Image getFrameFromCam() {//возвращает фрейм
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        VideoCapture camera = new VideoCapture(0);
-        BufferedImage bufferedImage = null;
-        if (!camera.isOpened()) {
-            JOptionPane.showMessageDialog(new JFrame(), "Камера не подключена!", "Предупреждение", JOptionPane.WARNING_MESSAGE);
-        } else {
-            Mat frame = new Mat();
-            if (camera.read(frame)) {
-                bufferedImage = MatToBufferedImage(frame);
-            }
-        }
-        camera.release();
-        return bufferedImage;
-    }
-     
-     public static Image getRectFrameFromCam() {//возвращает обработанный фрейм
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        VideoCapture camera = new VideoCapture(0);
-        BufferedImage bufferedImage = null;
-        if (!camera.isOpened()) {
-            JOptionPane.showMessageDialog(new JFrame(), "Камера не подключена!", "Предупреждение", JOptionPane.WARNING_MESSAGE);
-        } else {
-            Mat frame = new Mat();
-            if (camera.read(frame)) {
-                bufferedImage = MatToBufferedImage(frontalface_alt(frame));
-            }
-        }
-        camera.release();
-        return bufferedImage;
     }
 }
