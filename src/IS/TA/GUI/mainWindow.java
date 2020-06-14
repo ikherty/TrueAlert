@@ -5,8 +5,6 @@ import static IS.TA.camThread.VideoCap.getRectFrameFromCam;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.text.Normalizer.Form;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -20,11 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class mainWindow extends javax.swing.JFrame {
 
-    /**
-     * Creates new form mainWindow
-     */
     public mainWindow() {
-
         initComponents();
     }
 
@@ -157,11 +151,9 @@ public class mainWindow extends javax.swing.JFrame {
         BufferedImage saveImage = (BufferedImage) getRectFrameFromCam();
         JFileChooser chooser = new JFileChooser();
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int result = chooser.showDialog(new JFrame(), "Save");
-
+        int result = chooser.showDialog(new JFrame(), "Сохранить файл");
         if (result == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();
-
             file = new File(file.toString() + "/saved.jpeg");
             System.out.println(file);
             try {
@@ -169,12 +161,10 @@ public class mainWindow extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(mainWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
-            JOptionPane.showMessageDialog(new JFrame(), "The image was saved!", "", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(new JFrame(), "Кадр сохранен!", "Успешно", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(new JFrame(), "Canceled by user");
+            JOptionPane.showMessageDialog(new JFrame(), "Отменено пользователем.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
         }
-
-
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
