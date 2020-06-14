@@ -1,9 +1,8 @@
 package IS.TA.GUI;
 
 import IS.TA.camThread.MyThread;
-import static IS.TA.camThread.VideoCap.ChoosePort;
-import static IS.TA.camThread.VideoCap.getPort;
-import static IS.TA.camThread.VideoCap.getRectFrameFromCam;
+import static IS.TA.camThread.VideoCap.*;
+//import static IS.TA.camThread.VideoCap.initCamera;
 import java.awt.Image;
 import java.awt.image.RenderedImage;
 import java.io.File;
@@ -14,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import org.opencv.core.Core;
 
 /**
  *
@@ -151,7 +151,7 @@ public class mainWindow extends javax.swing.JFrame {
 //            // handle exception
 //        }
 //Сохранить кадр в выбранную директорию
-        Image saveImage = getRectFrameFromCam(getPort());
+        Image saveImage = getRectFrameFromCam();
         if (saveImage != null) {
             JFileChooser chooser = new JFileChooser();
             chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -178,8 +178,8 @@ public class mainWindow extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Здесь проиходит автоматический выбор USB-устройства, подключенного к ПК в качестве камеры
-        String port=ChoosePort();
-        MyThread tr = new MyThread("JThread", panel1, port);
+        initCamera();
+        MyThread tr = new MyThread("JThread", panel1);
         tr.start();//поток, показывающий обработанные картинки
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -191,11 +191,6 @@ public class mainWindow extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -215,6 +210,7 @@ public class mainWindow extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 mainWindow win = new mainWindow();
