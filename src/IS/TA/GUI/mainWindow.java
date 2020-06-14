@@ -5,8 +5,14 @@ import static IS.TA.camThread.VideoCap.getRectFrameFromCam;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.text.Normalizer.Form;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -139,14 +145,36 @@ public class mainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // Сохранить кадр в текущую директорию
-        try {
-            BufferedImage saveImage = (BufferedImage) getRectFrameFromCam();
-            File outputfile = new File("saved.jpeg");
-            ImageIO.write(saveImage, "jpeg", outputfile);
-        } catch (IOException e) {
-            // handle exception
+//Сохранить кадр в текущую директорию
+//        try {
+//            BufferedImage saveImage = (BufferedImage) getRectFrameFromCam();
+//            File outputfile = new File("saved.jpeg");
+//            ImageIO.write(saveImage, "jpeg", outputfile);
+//        } catch (IOException e) {
+//            // handle exception
+//        }
+//Сохранить кадр в выбранную директорию
+        BufferedImage saveImage = (BufferedImage) getRectFrameFromCam();
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int result = chooser.showDialog(new JFrame(), "Save");
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+
+            file = new File(file.toString() + "/saved.jpeg");
+            System.out.println(file);
+            try {
+                ImageIO.write(saveImage, "jpeg", file);
+            } catch (IOException ex) {
+                Logger.getLogger(mainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            JOptionPane.showMessageDialog(new JFrame(), "The image was saved!", "", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(new JFrame(), "Canceled by user");
         }
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
