@@ -2,7 +2,6 @@ package IS.TA.GUI;
 
 import IS.TA.camThread.MyThread;
 import static IS.TA.camThread.VideoCap.*;
-//import static IS.TA.camThread.VideoCap.initCamera;
 import java.awt.Image;
 import java.awt.image.RenderedImage;
 import java.io.File;
