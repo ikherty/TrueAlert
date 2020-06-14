@@ -18,14 +18,17 @@ import org.opencv.videoio.VideoCapture;
  */
 public class VideoCap {
     private static VideoCapture camera = null;
-
-    public static String ChoosePort() {
+    private static Mat frame = new Mat();
+    public static String ChoosePort() {//можно объединить с выбором директории, для выбора директории убрать ограничение "только директория"
         JFileChooser chooser = new JFileChooser();
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         int result = chooser.showDialog(new JFrame(), "Выбрать порт");
         File file = null;
         if (result == JFileChooser.APPROVE_OPTION) {
             file = chooser.getSelectedFile();
+        }
+        else{
+            JOptionPane.showMessageDialog(new JFrame(), "Камера не подключена!", "Предупреждение", JOptionPane.WARNING_MESSAGE);//если камера не выбрана, уведомление
         }
         return file.toString();
     }
@@ -37,26 +40,12 @@ public class VideoCap {
     }
     //tryIoctl VIDEOIO(V4L2:/dev/video0)
 
-    public static Image getFrameFromCam() {//возвращает фрейм
-        BufferedImage bufferedImage = null;
-        if (!camera.isOpened()) {
-            JOptionPane.showMessageDialog(new JFrame(), "Камера не подключена!", "Предупреждение", JOptionPane.WARNING_MESSAGE);
-        } else {
-            Mat frame = new Mat();
-            if (camera.read(frame)) {
-                bufferedImage = MatToBufferedImage(frame);
-            }
-        }
-        return bufferedImage;
-    }
-
     public static Image getRectFrameFromCam() {//возвращает обработанный фрейм
         BufferedImage bufferedImage = null;
         if (!camera.isOpened()) {
             JOptionPane.showMessageDialog(new JFrame(), "Камера не подключена!", "Предупреждение", JOptionPane.WARNING_MESSAGE);
             return null;
         } else {
-            Mat frame = new Mat();
             if (camera.read(frame)) {
                 bufferedImage = MatToBufferedImage(frontalface_alt(frame));
             }
@@ -69,7 +58,6 @@ public class VideoCap {
         if (!camera.isOpened()) {
             JOptionPane.showMessageDialog(new JFrame(), "Камера не подключена!", "Предупреждение", JOptionPane.WARNING_MESSAGE);
         } else {
-            Mat frame = new Mat();
             while (true) {
                 if (camera.read(frame)) {
                     Mat newframe = frontalface_alt(frame);//выделение лиц в прямоугольники
