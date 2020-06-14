@@ -8,7 +8,6 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.highgui.HighGui;
 import org.opencv.videoio.VideoCapture;
@@ -18,12 +17,9 @@ import org.opencv.videoio.VideoCapture;
  * @author Petrenko Valentina
  */
 public class VideoCap {
-
-    private static String port = new String();
+    private static VideoCapture camera = null;
 
     public static String ChoosePort() {
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        VideoCapture camera = new VideoCapture(0);
         JFileChooser chooser = new JFileChooser();
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         int result = chooser.showDialog(new JFrame(), "Выбрать порт");
@@ -31,25 +27,18 @@ public class VideoCap {
         if (result == JFileChooser.APPROVE_OPTION) {
             file = chooser.getSelectedFile();
         }
-        setPort(file.toString());
         return file.toString();
     }
 
-    public static String setPort(String port) {
-        VideoCap.port = port;
-        return port;
-    }
-
-    public static String getPort() {
-        return port;
+    public static VideoCapture initCamera() {
+        camera = new VideoCapture();//VideoCapture(0)-камера по умолчанию
+        camera.open(ChoosePort());
+        return camera;
     }
     //tryIoctl VIDEOIO(V4L2:/dev/video0)
 
     public static Image getFrameFromCam() {//возвращает фрейм
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        VideoCapture camera=null;// = new VideoCapture(0);//VideoCapture(0)-камера по умолчанию
         BufferedImage bufferedImage = null;
-        camera.open(port);
         if (!camera.isOpened()) {
             JOptionPane.showMessageDialog(new JFrame(), "Камера не подключена!", "Предупреждение", JOptionPane.WARNING_MESSAGE);
         } else {
@@ -58,15 +47,11 @@ public class VideoCap {
                 bufferedImage = MatToBufferedImage(frame);
             }
         }
-        camera.release();
         return bufferedImage;
     }
 
-    public static Image getRectFrameFromCam(String port) {//возвращает обработанный фрейм
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        VideoCapture camera=null;// = new VideoCapture(0);
+    public static Image getRectFrameFromCam() {//возвращает обработанный фрейм
         BufferedImage bufferedImage = null;
-        camera.open(port);
         if (!camera.isOpened()) {
             JOptionPane.showMessageDialog(new JFrame(), "Камера не подключена!", "Предупреждение", JOptionPane.WARNING_MESSAGE);
             return null;
@@ -76,15 +61,10 @@ public class VideoCap {
                 bufferedImage = MatToBufferedImage(frontalface_alt(frame));
             }
         }
-        camera.release();
         return bufferedImage;
     }
 //Метод для корректного вывода потока в отдельное окно
-
     public static void main(String args[]) {//для теста этого метода
-        //public static void ShowVideo() {//статический метод для вызова из главного фрейма
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        VideoCapture camera=null;// = new VideoCapture(0);
         camera.open(ChoosePort());
         if (!camera.isOpened()) {
             JOptionPane.showMessageDialog(new JFrame(), "Камера не подключена!", "Предупреждение", JOptionPane.WARNING_MESSAGE);
