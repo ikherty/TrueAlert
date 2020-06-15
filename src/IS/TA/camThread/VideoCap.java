@@ -1,7 +1,9 @@
 package IS.TA.camThread;
 
 import static IS.TA.recognize.ObjectDetect.MatToBufferedImage;
-import static IS.TA.recognize.ObjectDetect.frontalface_alt;
+import static IS.TA.recognize.ObjectDetect.face_Det;
+import static IS.TA.recognize.ObjectDetect.upperbody_Det;
+import static IS.TA.recognize.ObjectReplacement.faceReplacement;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -14,7 +16,7 @@ import org.opencv.videoio.VideoCapture;
 
 /**
  *
- * @author Petrenko Valentina
+ * @author Petrenko Valentina,
  */
 public class VideoCap {
 
@@ -34,24 +36,65 @@ public class VideoCap {
         return file.toString();
     }
 
+<<<<<<< Updated upstream
     public static VideoCapture initCamera() {
         camera = new VideoCapture();//VideoCapture(0)-камера по умолчанию из /dev/video0
         camera.open(ChoosePort());
         return camera;
     }
+=======
+    public static VideoCapture initCamera(Boolean i) {
+        camera = new VideoCapture();//VideoCapture(0)-камера по умолчанию
+        if(i==true)
+            camera.open(0);
+        if(i ==false )
+            camera.open(ChoosePort());
+        return camera;
+    }
+    //tryIoctl VIDEOIO(V4L2:/dev/video0)
 
-    public static Image getRectFrameFromCam() {//возвращает обработанный фрейм
+    public static Image getBodyRectFrameFromCam() {//возвращает обработанный фрейм(тело)
+        BufferedImage bufferedImage = null;
+        if (!camera.isOpened()) {
+            JOptionPane.showMessageDialog(new JFrame(), "Камера не подключена!", "Предупреждение", JOptionPane.WARNING_MESSAGE);
+        } else {
+            Mat frame = new Mat();
+            if (camera.read(frame)) {
+                bufferedImage = MatToBufferedImage(upperbody_Det(frame));
+            }
+        }
+        return bufferedImage;
+    }
+    
+    public static Image getFaceReplaceFrameFromCam() {//возвращает обработанный фрейм(замена лица)
+        BufferedImage bufferedImage = null;
+        if (!camera.isOpened()) {
+            JOptionPane.showMessageDialog(new JFrame(), "Камера не подключена!", "Предупреждение", JOptionPane.WARNING_MESSAGE);
+        } else {
+            Mat frame = new Mat();
+            if (camera.read(frame)) {
+                bufferedImage = MatToBufferedImage(faceReplacement(frame));
+            }
+        }
+        return bufferedImage;
+    }
+    
+>>>>>>> Stashed changes
+
+    public static Image getFaceRectFrameFromCam() {//возвращает обработанный фрейм(лицо)
         BufferedImage bufferedImage = null;
         if (!camera.isOpened()) {
             JOptionPane.showMessageDialog(new JFrame(), "Камера не подключена!", "Предупреждение", JOptionPane.WARNING_MESSAGE);
             return null;
         } else {
             if (camera.read(frame)) {
-                bufferedImage = MatToBufferedImage(frontalface_alt(frame));
+                bufferedImage = MatToBufferedImage(face_Det(frame));
             }
         }
         return bufferedImage;
     }
+    
+    
 //Метод для корректного вывода потока в отдельное окно
 
     public static void main(String args[]) {//для теста этого метода
@@ -61,7 +104,7 @@ public class VideoCap {
         } else {
             while (true) {
                 if (camera.read(frame)) {
-                    Mat newframe = frontalface_alt(frame);//выделение лиц в прямоугольники
+                    Mat newframe = upperbody_Det(frame);//выделение лиц в прямоугольники
                     HighGui.imshow("True Alert", newframe);//вывод в новом окне обработанного фрейма
                     HighGui.waitKey(2);//2-delay
                 }

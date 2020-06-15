@@ -4,8 +4,10 @@ package IS.TA.recognize;
  *
  * @author Petrenko Valentina
  */
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
+import java.util.Arrays;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,6 +19,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 
@@ -96,24 +99,63 @@ public class ObjectDetect {
         window.setVisible(true);
     }
 
+<<<<<<< Updated upstream
     public static Mat frontalface_alt(Mat frame) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        Mat img = frame;
+=======
+    
+    public static Mat face_Det(Mat frame)
+    {
+        System.load("/Library/Java/Extensions/opencv4/libopencv_java420.dylib");
         Mat img = frame;
         if (img.empty()) {
             JOptionPane.showMessageDialog(new JFrame(), "Не удалось загрузить изображение", "Предупреждение", JOptionPane.WARNING_MESSAGE);//варнинг
             return frame;
         }
-        CascadeClassifier face_detector = new CascadeClassifier();
-        String path = "./classificators/";//путь к классификаторам
-        String name = "haarcascade_upperbody.xml";//haarcascade_frontalface_alt.xml для лиц
-        if (!face_detector.load(path + name)) {
+        CascadeClassifier upperbody_detector = new CascadeClassifier();
+        String path = "/usr/local/Cellar/opencv/4.2.0_3/share/opencv4/haarcascades/";//путь к классификаторам
+        String name = "haarcascade_frontalface_alt.xml";
+        if (!upperbody_detector.load(path + name)) {
             JOptionPane.showMessageDialog(new JFrame(), "Не удалось загрузить классификатор " + name, "Предупреждение", JOptionPane.WARNING_MESSAGE);
             return frame;
         }
+        MatOfRect body = new MatOfRect();
+        upperbody_detector.detectMultiScale(img, body);
+        for (Rect r : body.toList()) {//выделение в прямоугольник
+            Imgproc.rectangle(img, r, colorRGB(255, 255, 255), 2);//выделение лиц в прямоугольники
+        }
+        return img;
+
+    }
+            
+            
+    public static Mat upperbody_Det(Mat frame) {  //нахождение 
+        System.load("/Library/Java/Extensions/opencv4/libopencv_java420.dylib");
+        Mat img = frame;//Imgcodecs.imread("/home/qw/test.jpg"); //для теста на одной картинке
+>>>>>>> Stashed changes
+        if (img.empty()) {
+            JOptionPane.showMessageDialog(new JFrame(), "Не удалось загрузить изображение", "Предупреждение", JOptionPane.WARNING_MESSAGE);//варнинг
+            return frame;
+        }
+        CascadeClassifier upperbody_detector = new CascadeClassifier();
+        String path = "/usr/local/Cellar/opencv/4.2.0_3/share/opencv4/haarcascades/";//путь к классификаторам
+        String name = "haarcascade_upperbody.xml";//haarcascade_frontalface_alt.xml для лиц /haarcascade_upperbody.xml
+        if (!upperbody_detector.load(path + name)) {
+            JOptionPane.showMessageDialog(new JFrame(), "Не удалось загрузить классификатор " + name, "Предупреждение", JOptionPane.WARNING_MESSAGE);
+            return frame;
+        }
+<<<<<<< Updated upstream
         MatOfRect faces = new MatOfRect();
         face_detector.detectMultiScale(img, faces);
         for (Rect r : faces.toList()) {//выделение в белый прямоугольник
             Imgproc.rectangle(img, r, colorRGB(255, 255, 255), 2);
+=======
+        MatOfRect body = new MatOfRect();
+        upperbody_detector.detectMultiScale(img, body);
+        for (Rect r : body.toList()) {//выделение в прямоугольник
+            Imgproc.rectangle(img, r, colorRGB(255, 255, 255), 2);//выделение лиц в прямоугольники
+>>>>>>> Stashed changes
         }
         return img;
 
