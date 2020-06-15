@@ -10,6 +10,7 @@ import static IS.TA.recognize.ObjectDetect.colorRGB;
 import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
 import org.opencv.core.Rect;
@@ -19,14 +20,15 @@ import org.opencv.objdetect.CascadeClassifier;
 
 /**
  *
- * @author denis
+ * @author Krapiva Denis
  */
 //без javaFX не получиться сделать 
 public class ObjectReplacement extends ObjectDetect {
     
     public static Mat faceReplacement(Mat frame)
     {
-        System.load("/Library/Java/Extensions/opencv4/libopencv_java420.dylib");
+        System.load("/Library/Java/Extensions/opencv4/libopencv_java420.dylib");//для mac
+        //System.loadLibrary(Core.NATIVE_LIBRARY_NAME);//для unix-подобной системы
         Mat img = frame;
         if (img.empty()) {
             JOptionPane.showMessageDialog(new JFrame(), "Не удалось загрузить изображение", "Предупреждение", JOptionPane.WARNING_MESSAGE);//варнинг

@@ -1,8 +1,8 @@
 package IS.TA.camThread;
 
-import static IS.TA.recognize.ObjectDetect.MatToBufferedImage;
-import static IS.TA.recognize.ObjectDetect.face_Det;
-import static IS.TA.recognize.ObjectDetect.upperbody_Det;
+//import static IS.TA.recognize.ObjectDetect.MatToBufferedImage;
+//import static IS.TA.recognize.ObjectDetect.face_Det;
+import static IS.TA.recognize.ObjectDetect.*;
 import static IS.TA.recognize.ObjectReplacement.faceReplacement;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -36,13 +36,6 @@ public class VideoCap {
         return file.toString();
     }
 
-<<<<<<< Updated upstream
-    public static VideoCapture initCamera() {
-        camera = new VideoCapture();//VideoCapture(0)-камера по умолчанию из /dev/video0
-        camera.open(ChoosePort());
-        return camera;
-    }
-=======
     public static VideoCapture initCamera(Boolean i) {
         camera = new VideoCapture();//VideoCapture(0)-камера по умолчанию
         if(i==true)
@@ -51,7 +44,6 @@ public class VideoCap {
             camera.open(ChoosePort());
         return camera;
     }
-    //tryIoctl VIDEOIO(V4L2:/dev/video0)
 
     public static Image getBodyRectFrameFromCam() {//возвращает обработанный фрейм(тело)
         BufferedImage bufferedImage = null;
@@ -79,7 +71,6 @@ public class VideoCap {
         return bufferedImage;
     }
     
->>>>>>> Stashed changes
 
     public static Image getFaceRectFrameFromCam() {//возвращает обработанный фрейм(лицо)
         BufferedImage bufferedImage = null;

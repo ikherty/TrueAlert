@@ -8,7 +8,7 @@ import javax.swing.JRadioButton;
 
 /**
  *
- * @author Petrenko Valentina,denis
+ * @author Petrenko Valentina, Krapiva Denis
  */
 public class MyThread extends Thread {
 
